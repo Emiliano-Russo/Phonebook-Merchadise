@@ -6,6 +6,7 @@
 
 body {
   margin: 0;
+  background-color: whitesmoke;
 }
 
 .App {
@@ -14,10 +15,16 @@ body {
 
 button {
   margin: 5px;
+  background-color: white;
+  border: none;
 }
 
 button:hover {
   cursor: pointer;
   transition: 0.2s;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+input {
+  margin-bottom: 5px;
 }
