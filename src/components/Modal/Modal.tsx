@@ -26,9 +26,9 @@ export const Modal: React.FC<Props> = (props: Props) => {
         borderRadius: "10px",
       }}
     >
-      <h3>{props.title}</h3>
+      <h3 style={{ textAlign: "center", textDecoration: "underline" }}>{props.title}</h3>
       {props.children}
-      <div>
+      <div style={{ display: "flex", justifyContent: "end" }}>
         <button style={{ background: Colors.warning, color: "white" }} onClick={props.onCancel}>
           Close
         </button>
