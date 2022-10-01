@@ -1,8 +1,8 @@
-export interface Contact extends ContactData {
+export interface Person extends PersonData {
   key: number;
 }
 
-export interface ContactData {
+export interface PersonData {
   name: string;
   email: string;
   telephone: string;

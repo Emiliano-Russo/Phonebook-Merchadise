@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Contact } from "../../components/Contact/Contact";
 import { Modal } from "../../components/Modal/Modal";
-import { ContactData } from "../../types/contact.interface";
+import { PersonData, Person } from "../../types/contact.interface";
 
 interface Props {
-  data: ContactData[];
-  addContact: (contact: ContactData) => void;
+  data: Person[];
+  addContact: (contact: PersonData) => void;
   deleteContact: (key: number) => void;
-  editContact: (key: number, contact: ContactData) => void;
+  editContact: (person: Person) => void;
 }
 
 export const ContactList = (props: Props) => {
@@ -60,16 +60,26 @@ export const ContactList = (props: Props) => {
         </button>
       </div>
       <input style={{ margin: "10px 0 30px 0" }} placeholder="Search for contact by name..." />
-      {props.data.map((contact) => {
-        return <Contact {...contact} />;
-      })}
+      <div style={{ height: "25rem", overflowY: "scroll" }}>
+        {props.data.map((contact) => {
+          return (
+            <Contact
+              deleteContact={props.deleteContact}
+              editContact={props.editContact}
+              person={contact}
+            />
+          );
+        })}
+      </div>
       <Modal isOpen={addContactModal} onOk={onAddContact} onCancel={onCancel} title="Add Contact">
         <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
+        <br />
         <input
           value={telephone}
           onChange={(e) => setTelephone(e.target.value)}
           placeholder="Phone"
         />
+        <br />
         <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
       </Modal>
     </div>

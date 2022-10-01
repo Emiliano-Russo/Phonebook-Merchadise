@@ -1,10 +1,28 @@
 import { useState } from "react";
 import { Colors } from "../../constants/Colors";
-import { ContactData } from "../../types/contact.interface";
+import { Person, PersonData } from "../../types/contact.interface";
+import { Modal } from "../Modal/Modal";
 
-export const Contact = (props: ContactData) => {
+interface Props {
+  deleteContact: (key: number) => void;
+  editContact: (person: Person) => void;
+  person: Person;
+}
+
+export const Contact = (props: Props) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [person, setPerson] = useState<Person>(props.person);
+
+  const deleteContact = () => {
+    props.deleteContact(props.person.key);
+    setDeleteOpen(false);
+  };
+
+  const editContact = () => {
+    props.editContact(person);
+    setEditOpen(false);
+  };
 
   return (
     <div
@@ -21,9 +39,9 @@ export const Contact = (props: ContactData) => {
     >
       <div>
         <div>
-          <h2 style={{ margin: "0px" }}>{props.name}</h2>
-          <p style={{ margin: "0px", color: "gray" }}>{props.telephone}</p>
-          <p style={{ margin: "0px", color: "gray" }}>{props.email}</p>
+          <h2 style={{ margin: "0px" }}>{props.person.name}</h2>
+          <p style={{ margin: "0px", color: "gray" }}>{props.person.telephone}</p>
+          <p style={{ margin: "0px", color: "gray" }}>{props.person.email}</p>
         </div>
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
@@ -36,6 +54,7 @@ export const Contact = (props: ContactData) => {
             padding: "5px",
             borderRadius: "10px",
           }}
+          onClick={() => setEditOpen(true)}
         >
           <img
             style={{ width: "20px", margin: "auto" }}
@@ -52,6 +71,7 @@ export const Contact = (props: ContactData) => {
             padding: "5px",
             borderRadius: "10px",
           }}
+          onClick={() => setDeleteOpen(true)}
         >
           <img
             style={{ width: "20px", margin: "auto" }}
@@ -59,6 +79,54 @@ export const Contact = (props: ContactData) => {
             alt="X"
           />
         </button>
+        <Modal
+          isOpen={deleteOpen}
+          title={"Delete Contact?"}
+          onOk={deleteContact}
+          onCancel={() => setDeleteOpen(false)}
+        ></Modal>
+        <Modal
+          isOpen={editOpen}
+          title={"Edit"}
+          onOk={editContact}
+          onCancel={() => setEditOpen(false)}
+        >
+          <input
+            placeholder="name"
+            value={person.name}
+            onChange={(event) =>
+              setPerson((prev) => {
+                const cloned = { ...prev };
+                cloned.name = event.target.value;
+                return cloned;
+              })
+            }
+          ></input>
+          <br></br>
+          <input
+            placeholder="telephone"
+            value={person.telephone}
+            onChange={(event) =>
+              setPerson((prev) => {
+                const cloned = { ...prev };
+                cloned.telephone = event.target.value;
+                return cloned;
+              })
+            }
+          ></input>
+          <br></br>
+          <input
+            placeholder="email"
+            value={person.email}
+            onChange={(event) =>
+              setPerson((prev) => {
+                const cloned = { ...prev };
+                cloned.email = event.target.value;
+                return cloned;
+              })
+            }
+          ></input>
+        </Modal>
       </div>
     </div>
   );

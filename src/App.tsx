@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { ContactList } from "./screens/ContactList/ContactList";
-import { Contact, ContactData } from "./types/contact.interface";
+import { Person, PersonData } from "./types/contact.interface";
 
-const mocked_data: Contact[] = [
+const mocked_data: Person[] = [
   { key: 1, name: "Pedro", telephone: "092481264", email: "pedro7@gmail.com" },
   { key: 2, name: "Maria", telephone: "45712456", email: "maria08@gmail.com" },
 ];
 
 function App() {
-  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [contacts, setContacts] = useState<Person[]>([]);
 
   useEffect(() => {
     setContacts(mocked_data);
   }, []);
 
-  const addContact = (contactParam: ContactData) => {
+  const addContact = (contactParam: PersonData) => {
     setContacts((prev) => {
       const cloned = [...prev];
-      const contact: Contact = {
-        key: cloned[cloned.length - 1].key,
+      const contact: Person = {
+        key: cloned[cloned.length - 1].key + 1,
         name: contactParam.name,
         email: contactParam.email,
         telephone: contactParam.telephone,
@@ -38,13 +38,13 @@ function App() {
     });
   };
 
-  const editContact = (key: number, contact: ContactData) => {
+  const editContact = (person: Person) => {
     setContacts((prev) => {
       const cloned = [...prev];
-      const index = cloned.findIndex((contact) => contact.key == key);
-      cloned[index].email = contact.email;
-      cloned[index].name = contact.name;
-      cloned[index].telephone = contact.telephone;
+      const index = cloned.findIndex((contact) => contact.key == person.key);
+      cloned[index].email = person.email;
+      cloned[index].name = person.name;
+      cloned[index].telephone = person.telephone;
       return cloned;
     });
   };
