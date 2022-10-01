@@ -6,6 +6,9 @@ import { Person, PersonData } from "./types/contact.interface";
 const mocked_data: Person[] = [
   { key: 1, name: "Pedro", telephone: "092481264", email: "pedro7@gmail.com" },
   { key: 2, name: "Maria", telephone: "45712456", email: "maria08@gmail.com" },
+  { key: 3, name: "Fernando", telephone: "21289745", email: "fer1995@gmail.com" },
+  { key: 4, name: "Natalia", telephone: "51514204", email: "naty@gmail.com" },
+  { key: 5, name: "Bernardo", telephone: "1087168", email: "bar09@gmail.com" },
 ];
 
 function App() {

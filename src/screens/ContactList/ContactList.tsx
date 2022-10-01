@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Contact } from "../../components/Contact/Contact";
 import { Modal } from "../../components/Modal/Modal";
 import { PersonData, Person } from "../../types/contact.interface";
@@ -15,6 +15,14 @@ export const ContactList = (props: Props) => {
   const [name, setName] = useState("");
   const [telephone, setTelephone] = useState("");
   const [email, setEmail] = useState("");
+  const [contacts, setContacts] = useState<Person[]>([]);
+
+  useEffect(() => {
+    setContacts(props.data);
+  }, [props.data]);
+
+  console.log("contacts: ", contacts);
+  console.log("props:", props.data);
 
   const onAddContact = () => {
     props.addContact({ name, telephone, email });
@@ -30,6 +38,10 @@ export const ContactList = (props: Props) => {
     setName("");
     setTelephone("");
     setEmail("");
+  };
+
+  const search = (text: string) => {
+    setContacts(props.data.filter((p) => p.name.toLowerCase().includes(text.toLowerCase())));
   };
 
   return (
@@ -59,9 +71,13 @@ export const ContactList = (props: Props) => {
           + Add Contact
         </button>
       </div>
-      <input style={{ margin: "10px 0 30px 0" }} placeholder="Search for contact by name..." />
+      <input
+        style={{ margin: "10px 0 30px 0" }}
+        placeholder="Search for contact by name..."
+        onChange={(e) => search(e.target.value)}
+      />
       <div style={{ height: "25rem", overflowY: "scroll" }}>
-        {props.data.map((contact) => {
+        {contacts.map((contact) => {
           return (
             <Contact
               deleteContact={props.deleteContact}

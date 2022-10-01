@@ -20,19 +20,31 @@ export const Modal: React.FC<Props> = (props: Props) => {
         top: "20%",
         left: "50%",
         padding: "20px",
-        boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px;",
-        border: "1px solid black",
+        boxShadow: "rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px",
         transform: "translate(-50%, -50%)",
         borderRadius: "10px",
       }}
     >
-      <h3 style={{ textAlign: "center", textDecoration: "underline" }}>{props.title}</h3>
+      <h3 style={{ textAlign: "center" }}>{props.title}</h3>
       {props.children}
       <div style={{ display: "flex", justifyContent: "end" }}>
-        <button style={{ background: Colors.warning, color: "white" }} onClick={props.onCancel}>
-          Close
+        <button
+          style={{
+            background: Colors.warning,
+            color: "white",
+            position: "absolute",
+            top: "-10px",
+            right: "-10px",
+            borderRadius: "20px",
+          }}
+          onClick={props.onCancel}
+        >
+          X
         </button>
-        <button style={{ background: Colors.primary, color: "white" }} onClick={props.onOk}>
+        <button
+          style={{ background: Colors.primary, color: "white", borderRadius: "5px" }}
+          onClick={props.onOk}
+        >
           Ok
         </button>
       </div>
