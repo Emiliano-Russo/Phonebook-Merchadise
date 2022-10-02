@@ -81,7 +81,7 @@ export const Contact = (props: Props) => {
         </button>
         <Modal
           isOpen={deleteOpen}
-          title={"Delete Contact?"}
+          title={"Delete " + props.person.name + "?"}
           onOk={deleteContact}
           onCancel={() => setDeleteOpen(false)}
         ></Modal>

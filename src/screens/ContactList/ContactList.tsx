@@ -21,9 +21,6 @@ export const ContactList = (props: Props) => {
     setContacts(props.data);
   }, [props.data]);
 
-  console.log("contacts: ", contacts);
-  console.log("props:", props.data);
-
   const onAddContact = () => {
     props.addContact({ name, telephone, email });
     cleanData();
